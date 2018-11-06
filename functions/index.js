@@ -4,14 +4,13 @@ admin.initializeApp(functions.config().firebase);
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  console.log('It Works')
-});
 
-exports.updateLastMessage = functions.firestore.document('/chat_publico/chat_general/chat_msg/{msgId}')
+
+exports.updateLastMessage = functions.firestore.document('/chat_publico/{sala_chat}/chat_msg/{msgId}')
   .onCreate((snapshot, context) => {
+    const data = snapshot.data()
     return admin.firestore()
       .collection('chat_publico')
-      .doc('chat_general')
-      .update({ last_message: snapshot.data() })
+      .doc(context.params.sala_chat)
+      .update({ last_message: data })
   })
