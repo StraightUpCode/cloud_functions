@@ -6,7 +6,8 @@ admin.initializeApp(functions.config().firebase);
 //
 
 
-exports.updateLastMessage = functions.firestore.document('/chat_publico/{sala_chat}/chat_msg/{msgId}')
+exports.updateLastMessage = functions.firestore
+  .document('/chat_publico/{sala_chat}/chat_msg/{msgId}')
   .onCreate((snapshot, context) => {
     const data = snapshot.data()
     return admin.firestore()
