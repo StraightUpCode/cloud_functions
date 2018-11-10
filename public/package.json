@@ -1,0 +1,23 @@
+{
+  "name": "firebase_chat_app",
+  "version": "1.0.0",
+  "description": "Firebase Chat App web version",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roberto Sanchez",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^5.5.8",
+    "preact": "^8.3.1",
+    "preact-async-route": "^2.2.1",
+    "preact-router": "^2.6.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "babel-preset-preact": "^1.1.0",
+    "parcel-bundler": "^1.10.3"
+  }
+}
