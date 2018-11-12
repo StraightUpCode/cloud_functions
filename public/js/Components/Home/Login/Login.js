@@ -3,14 +3,15 @@ import { route } from 'preact-router'
 //import firebase from 'firebase/app'
 import { firebase, FirebaseAuth } from '../../../firebase'
 import 'firebase/auth'
+import RegisterButton from './Register';
 class Login extends Component {
 
   state = {
     provider: new firebase.auth.GoogleAuthProvider()
   }
 
-  handleRegister = (e) => { }
   handleLogin = (e) => { }
+
   signInGoogle = e => {
     FirebaseAuth.signInWithPopup(this.state.provider)
       .then(result => {
@@ -23,7 +24,8 @@ class Login extends Component {
   render(props, state) {
     return (
       <div>
-        Loging page
+        Logging page
+        <RegisterButton />
         <button onClick={this.signInGoogle}>Sign In Google </button>
       </div>)
   }
