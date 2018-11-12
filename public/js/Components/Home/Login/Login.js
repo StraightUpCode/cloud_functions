@@ -15,7 +15,7 @@ class Login extends Component {
     FirebaseAuth.signInWithPopup(this.state.provider)
       .then(result => {
         console.log(result)
-        route('/', true)
+        route('/')
 
       })
   }
