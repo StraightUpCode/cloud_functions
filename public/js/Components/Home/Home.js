@@ -1,20 +1,24 @@
 import { Component, h } from "preact";
 import Login from './Login/Login'
+import { FirebaseAuth } from "../../firebase";
+
 class Home extends Component {
   state = {
     login: false
   }
 
   componentDidMount() {
-    Login()
+    console.log("Home Mounted")
   }
 
   render(props, { login }) {
+    let component
+
+
     return (
       <div id="Home">
         {
-          login ? (<div>Login </div>) :
-            (<div>Trolleando</div>)
+          FirebaseAuth.currentUser ? <div> Logged </div> : <Login />
         }
       </div>
     )
