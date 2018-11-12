@@ -1,6 +1,7 @@
 import 'firebase'
 import firebase from 'firebase/app'
 
+
 const initialConfig = {
   apiKey: "AIzaSyAW1gzeqFTj_IR2iQ8VE1IysgfsiTVyxcY",
   authDomain: "chatapp-test-4e669.firebaseapp.com",
@@ -16,7 +17,9 @@ try {
   console.log(e)
 }
 const FirebaseAuth = app.auth()
+const Firestore = app.firestore()
 export {
   firebase,
-  FirebaseAuth
+  FirebaseAuth,
+  Firestore
 }
