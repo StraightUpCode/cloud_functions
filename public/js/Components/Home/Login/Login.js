@@ -1,9 +1,8 @@
 import { h, Component } from 'preact'
 import { route } from 'preact-router'
-//import firebase from 'firebase/app'
 import { firebase, FirebaseAuth } from '../../../firebase'
 import 'firebase/auth'
-import RegisterButton from './Register';
+import CustomAuthButton from './CustomAuthButton';
 class Login extends Component {
 
   state = {
@@ -20,12 +19,28 @@ class Login extends Component {
 
       })
   }
-
-  render(props, state) {
+  registerUser = (email, password) => {
+    FirebaseAuth.createUserWithEmailAndPassword(email, password)
+      .then(result => console.log(result))
+      .then(_ => route('/'))
+      .catch(err =>
+        this.setState({ registerError: err.message })
+      )
+  }
+  signIn = (email, password) => {
+    FirebaseAuth.signInWithEmailAndPassword(email, password)
+      .then(result => console.log(result))
+      .then(_ => route('/'))
+      .catch(err => {
+        this.setState({ signInError: err.message })
+      })
+  }
+  render(props, { registerError, signInError }) {
     return (
       <div>
         Logging page
-        <RegisterButton />
+        <CustomAuthButton handleSubmit={this.signIn} type="Log In" errorMsg={signInError} />
+        <CustomAuthButton handleSubmit={this.registerUser} type="Register" errorMsg={registerError} />
         <button onClick={this.signInGoogle}>Sign In Google </button>
       </div>)
   }
