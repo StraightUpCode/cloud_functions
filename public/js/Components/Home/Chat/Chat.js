@@ -1,42 +1,35 @@
 import { h, Component } from 'preact'
 import { Firestore } from '../../../firebase'
+import Message from './Message'
 
 class Chat extends Component {
   state = {
-
+    last_msg: {
+      uID: '',
+      datetime: '',
+      message: '',
+      nickname: ''
+    }
   }
   componentDidMount() {
     console.log(Firestore)
     const msg = Firestore.collection('chat_publico')
       .doc('chat_general')
       .get()
-      .then(doc => {
-        let msg = doc.data().last_message
-        let username = Firestore.collection('users').doc(msg.uID)
-          .get()
-          .then(user => {
-            return user.data()
-          })
-        return Promise.all([msg, username])
-          .then((msg, username) => {
-            return ({ ...msg, ...username })
-          })
-      })
+      .then(docSnapshot => docSnapshot.data())
       .then(obj => {
-        console.log("Obj")
-        console.log(obj)
-        this.setState({ last_msg: obj }, () => {
+        this.setState({ last_msg: obj.last_message }, () => {
           console.log("Set State")
           console.log(this.state)
         })
       })
 
   }
-  render(props, { last_message }) {
+  render(props, { last_msg }) {
     return (
       <div>
         <div> Chat </div>
-        <div>{last_message}</div>
+        <Message message={last_msg} />
       </div>
     )
   }
