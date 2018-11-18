@@ -1,8 +1,10 @@
 import { h, Component } from 'preact'
 import { route } from 'preact-router'
-import { firebase, FirebaseAuth } from '../../../firebase'
+import { firebase, FirebaseAuth, Firestore } from '../../../firebase'
 import 'firebase/auth'
-import CustomAuthButton from './CustomAuthButton';
+import CustomAuthButton from './CustomAuthButton'
+import RegisterButton from './RegisterButton';
+
 class Login extends Component {
 
   state = {
@@ -14,14 +16,22 @@ class Login extends Component {
   signInGoogle = e => {
     FirebaseAuth.signInWithPopup(this.state.provider)
       .then(result => {
-        console.log(result)
         route('/')
-
       })
+
   }
-  registerUser = (email, password) => {
+  registerUser = (email, password, nickname) => {
     FirebaseAuth.createUserWithEmailAndPassword(email, password)
-      .then(result => console.log(result))
+      .then(result => {
+        console.log(result)
+        return result.user.uid
+      })
+      .then(userId => {
+        console.log(userId)
+        Firestore.collection("users")
+          .doc(userId)
+          .set({ nickname })
+      })
       .then(_ => route('/'))
       .catch(err =>
         this.setState({ registerError: err.message })
@@ -29,7 +39,13 @@ class Login extends Component {
   }
   signIn = (email, password) => {
     FirebaseAuth.signInWithEmailAndPassword(email, password)
-      .then(result => console.log(result))
+      .then(result => {
+        console.log(result)
+        return result.user.uid
+      })
+      .then(userId => {
+        console.log(userId)
+      })
       .then(_ => route('/'))
       .catch(err => {
         this.setState({ signInError: err.message })
@@ -40,7 +56,7 @@ class Login extends Component {
       <div>
         Logging page
         <CustomAuthButton handleSubmit={this.signIn} type="Log In" errorMsg={signInError} />
-        <CustomAuthButton handleSubmit={this.registerUser} type="Register" errorMsg={registerError} />
+        <RegisterButton handleSubmit={this.registerUser} type="Register" errorMsg={registerError} />
         <button onClick={this.signInGoogle}>Sign In Google </button>
       </div>)
   }
