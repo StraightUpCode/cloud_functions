@@ -8,6 +8,7 @@ class CustomAuthButton extends Component {
     open: false
   }
   togglePortal = e => {
+    e.stopPropagation()
     this.setState((prevState) => ({ open: !prevState.open }))
   }
 
@@ -28,18 +29,19 @@ class CustomAuthButton extends Component {
         <button onClick={this.togglePortal} >{type}</button>
         {open ?
           <Portal into="body">
-            <form onSubmit={this.handleSubmit}
-            >
-              <label>
-                E-Mail :
-                <input name="email" type="text" placeholder="example@email.com" onChange={this.handleChange} />
-              </label>
-              <label>
-                Password
-                <input name="password" type="password" placeholder="******" onChange={this.handleChange} />
-              </label>
-              <button type="submit">Submit</button>
-            </form>
+            <div class="portal" >
+              <div class="portal-content">
+                <div onClick={this.togglePortal} >Close</div>
+                <form onSubmit={this.handleSubmit}
+                >
+                  <input name="email" type="text" placeholder="example@email.com" onChange={this.handleChange} />
+
+                  <input name="password" type="password" placeholder="******" onChange={this.handleChange} />
+                  <button class="button" type="submit">Submit</button>
+                </form>
+
+              </div>
+            </div>
           </Portal>
           : null}
         {errorMsg ? <span>Error {errorMsg}</span> : null}

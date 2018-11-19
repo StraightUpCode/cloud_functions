@@ -3,7 +3,8 @@ import { route } from 'preact-router'
 import { firebase, FirebaseAuth, Firestore } from '../../../firebase'
 import 'firebase/auth'
 import CustomAuthButton from './CustomAuthButton'
-import RegisterButton from './RegisterButton';
+import RegisterButton from './RegisterButton'
+import './Login.scss'
 
 class Login extends Component {
 

@@ -1,0 +1,46 @@
+
+.portal {
+  background-color: rgba(0,0,0,.5);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+
+
+  &-content{
+    background-color: white;
+    width: 35vw;
+    height: 35vh;
+    padding: 25px;
+    text-align: center;
+
+
+  }
+  input {
+    display: block;
+    margin: 20px auto;
+    width: 50%;
+    height: 25px;
+    border: 0;
+    border-bottom: 1px solid rgba($color: #000000, $alpha: 0.25);
+  }
+  .button {
+    background-color: black ; 
+    border: none;
+    color: white;
+    padding: 15px 35px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    transition: 0.5s;
+    &:hover{
+      background-color: white;
+      color: black;
+    }
+  }
+  
+}
