@@ -3,11 +3,11 @@ const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
 exports.updateLastMessage = functions.firestore
-  .document('/chat_publico/{sala_chat}/chat_msg/{msgId}')
+  .document('/{tipo_chat}/{sala_chat}/chat_msg/{msgId}')
   .onCreate((snapshot, context) => {
     const data = snapshot.data()
     return admin.firestore()
-      .collection('chat_publico')
+      .collection(context.params.tipo_chat)
       .doc(context.params.sala_chat)
       .update({ last_message: data })
   })
