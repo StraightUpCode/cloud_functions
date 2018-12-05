@@ -18,8 +18,10 @@ try {
 }
 const FirebaseAuth = app.auth()
 const Firestore = app.firestore()
+const FireStorage = app.storage();
 export {
   firebase,
   FirebaseAuth,
-  Firestore
+  Firestore,
+  FireStorage,
 }

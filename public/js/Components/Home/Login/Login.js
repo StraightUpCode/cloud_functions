@@ -54,8 +54,9 @@ class Login extends Component {
   }
   render(props, { registerError, signInError }) {
     return (
+
       <div>
-        Logging page
+        Log in page
         <CustomAuthButton handleSubmit={this.signIn} type="Log In" errorMsg={signInError} />
         <RegisterButton handleSubmit={this.registerUser} type="Register" errorMsg={registerError} />
         <button onClick={this.signInGoogle}>Sign In Google </button>

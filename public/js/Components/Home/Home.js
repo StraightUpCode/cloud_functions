@@ -18,9 +18,13 @@ class Home extends Component {
 
     return (
       <div id="Home">
+        <div>
+          <a href="/invite">invite</a>
+        </div>
         {
           FirebaseAuth.currentUser ? <Chat /> : <Login />
         }
+
       </div>
     )
   }

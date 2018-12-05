@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
 import { Router } from 'preact-router'
-
+import Invite from './Invite/Invite'
 import Home from './Home/Home'
 
 
@@ -15,6 +15,7 @@ class AppRouter extends Component {
     return (
       <Router>
         <Home path="/" />
+        <Invite path="/invite" />
       </Router>
     )
   }
