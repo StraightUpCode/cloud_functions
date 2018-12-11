@@ -12,8 +12,13 @@ exports.updateLastMessage = functions.firestore
       .update({ last_message: data })
   })
 
-exports.userCreated = functions.auth.user()
-  .onCreate((user, ctx) => {
-    console.log(`User : ${JSON.stringify(user)}`)
-    console.log(`Context : ${ctx}`)
+exports.addUserToPrivateChat = functions.firestore
+  .document('/users/{user_id}/chats_privados/{new_private_chat}')
+  .onCreate((snapshot, context) => {
+    const { chatId } = snapshot.data()
+    return admin.firestore()
+      .collection('salas_chat')
+      .doc(chatId)
+      .collection('miembros')
+      .add({ userId: context.params.user_id })
   })
