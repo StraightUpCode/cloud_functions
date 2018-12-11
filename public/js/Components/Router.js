@@ -1,25 +1,11 @@
-import { h, Component } from 'preact'
+import { h } from 'preact'
 import { Router } from 'preact-router'
-import Invite from './Invite/Invite'
-import Home from './Home/Home'
+import AsyncRoute from 'preact-async-route'
 
-
-class AppRouter extends Component {
-  state = {
-    msg: "Hello"
-  }
-  componentDidMount() {
-    console.log("App Mounted")
-  }
-  render(props, { msg }) {
-    return (
-      <Router>
-        <Home path="/" />
-        <Invite path="/invite" />
-      </Router>
-    )
-  }
-
-}
-
-export default AppRouter;
+export default () => (
+  <Router>
+    <AsyncRoute path="/" getComponent={(url, cb, props) => import('./Home/Home').then(module => module.default)}></AsyncRoute>
+    <AsyncRoute path="/invite" getComponent={(url, cb, props) => import('./Invite/Invite').then(module => module.default)} />
+    <AsyncRoute path="/download" getComponent={(url, cb, props) => import('./Invite/Download').then(module => module.default)} />
+  </Router>
+);
