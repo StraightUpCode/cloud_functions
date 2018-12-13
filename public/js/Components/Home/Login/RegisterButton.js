@@ -9,6 +9,7 @@ class RegisterButton extends Component {
     open: false
   }
   togglePortal = e => {
+    console.log(e.target)
     this.setState((prevState) => ({ open: !prevState.open }))
   }
 
@@ -31,9 +32,10 @@ class RegisterButton extends Component {
           <Portal into="body">
             <div class="portal">
               <div class="portal-content">
-                <div onClick={this.togglePortal}>Close</div>
+                <div class="close-icon" onClick={this.togglePortal}>&times;</div>
                 <form onSubmit={this.handleSubmit}
                 >
+                  <br />
                   <input name="email" type="text" placeholder="example@email.com" onChange={this.handleChange} />
 
                   <input name="password" type="password" placeholder="******" onChange={this.handleChange} />

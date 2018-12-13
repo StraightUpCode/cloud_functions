@@ -13,11 +13,16 @@
 
   &-content{
     background-color: white;
+    position: relative;
     width: 35vw;
     height: 35vh;
     padding: 25px;
     text-align: center;
 
+   .close-icon{
+     position: absolute;
+     right: 32px;
+   }
 
   }
   input {
