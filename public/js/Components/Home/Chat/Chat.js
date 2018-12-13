@@ -1,35 +1,31 @@
 import { h, Component } from 'preact'
 import { Firestore } from '../../../firebase'
-import Message from './Message'
+import ChatRoom from './ChatRoom';
 
 class Chat extends Component {
   state = {
-    last_msg: {
-      uID: '',
-      datetime: '',
-      message: '',
-      nickname: ''
-    }
+    chatRooms: []
   }
-  componentDidMount() {
-    console.log(Firestore)
-    const msg = Firestore.collection('chat_publico')
-      .doc('chat_general')
+  async componentDidMount() {
+    const QuerySnapshot = await Firestore
+      .collection('salas_chat')
+      .where('tipoChat', '==', 'chat_publico')
       .get()
-      .then(docSnapshot => docSnapshot.data())
-      .then(obj => {
-        this.setState({ last_msg: obj.last_message }, () => {
-          console.log("Set State")
-          console.log(this.state)
-        })
+    QuerySnapshot.forEach(documentSnapshot => {
+      this.setState((prevState) => {
+        prevState.chatRooms.push(documentSnapshot.data())
+        return prevState
       })
+    })
+
 
   }
-  render(props, { last_msg }) {
+  render(props, { chatRooms }) {
+    console.log(chatRooms)
     return (
       <div>
-        <div> Chat </div>
-        <Message message={last_msg} />
+        <div> Chat Page </div>
+        {chatRooms.map(el => <ChatRoom chatRoom={el} />)}
       </div>
     )
   }
