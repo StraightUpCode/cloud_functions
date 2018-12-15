@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
-import { Firestore } from '../../../firebase'
-import ChatRoom from './ChatRoom';
+import { Firestore } from '../../firebase'
+import ChatRoom from '../ChatRoom/ChatRoom';
 
 class Chat extends Component {
   state = {
